@@ -14,7 +14,8 @@ func _ready():
 func restart_level():
 	lives = 3
 	carrying = false
-	global_position = Vector2(100, 100)
+	await get_tree().process_frame
+	global_position = GlobalReferences.start_area.position
 
 func _physics_process(delta):
 	var input_vector = Vector2(
@@ -25,8 +26,8 @@ func _physics_process(delta):
 	move_and_slide()
 	# Clamp to screen bounds
 	var screen_size = get_viewport_rect().size
-	position.x = clamp(position.x, 0, screen_size.x-40)
-	position.y = clamp(position.y, 0, screen_size.y-40)
+	position.x = clamp(position.x, 20, screen_size.x - 20)
+	position.y = clamp(position.y, 20, screen_size.y - 20)
 	
 	if Input.is_mouse_button_pressed(1):
 		for area in player_area.get_overlapping_areas():
